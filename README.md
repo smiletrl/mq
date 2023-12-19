@@ -3,7 +3,7 @@
 One Message Queue system based on Postgres table.
 
 For projects with smaller traffic volume, it's usually not cost wise to use [kafka](https://kafka.apache.org/),
-rocketmq(https://rocketmq.apache.org/) or similar mq system. But projects still need [Eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency) to enable distributed system, and decouple services.
+rocketmq(https://rocketmq.apache.org/), [SQS](https://aws.amazon.com/sqs/) or similar mq system. But projects still need [Eventual consistency](https://en.wikipedia.org/wiki/Eventual_consistency) to enable distributed system, and decouple services.
 
 Here's the solution to make use of postgres table.
 
