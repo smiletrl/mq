@@ -145,3 +145,8 @@ func process() {
 	}
 }
 ```
+
+## Test
+
+This repo is primarily for demo purpose. No tests are created. If you feel like this design
+works for your project too, make sure tests are created for your projects.
