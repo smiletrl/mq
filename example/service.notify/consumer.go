@@ -32,7 +32,7 @@ func (c *OrderCreatedConsumer) Event() mq.Event {
 
 func (c *OrderCreatedConsumer) Delay() time.Duration {
 	// consume this message immediately
-	return 5 * time.Minute
+	return 0
 }
 
 func (c *OrderCreatedConsumer) Consume(ctx context.Context, tx pgx.Tx, msgRaw *mq.MQMessage) error {
