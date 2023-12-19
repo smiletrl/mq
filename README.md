@@ -9,7 +9,7 @@ Here's the solution to make use of postgres table.
 
 It makes use of postgres [transaction save point](https://www.postgresql.org/docs/current/sql-savepoint.html)
 to have two save points within message consuming process. Due to the nature of RDS transaction, this system is
-easier to be implemented with postgres tx. [pgx](https://github.com/jackc/pgx) is used to in this system.
+easier to be implemented with postgres tx. [pgx](https://github.com/jackc/pgx) is used inside this repository.
 
 It's up to project to use appropriate postgres library.
 
@@ -148,5 +148,6 @@ func process() {
 
 ## Test
 
-This repo is primarily for demo purpose. No tests are created. If you feel like this design
-works for your project too, make sure tests are created for your projects.
+While this design has been used in a few production env products, this repo is primarily for demo purpose.
+No tests are created. If you feel like this design works for your project too, make sure tests are created
+for your projects.
