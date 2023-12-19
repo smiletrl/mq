@@ -48,7 +48,7 @@ queue messages for system administrator to review queue health.
 In commerce app, user puts one order but not paid yet. There are two things to be done after order is created:
 
 - Order service. Cancel this order if order is not paid for 5 minutes or other time duration.
-- Notify servvice. Send one email notification out for this order.
+- Notify service. Send one email notification out for this order.
 
 When this `event` (one new order is created) happens, we will insert two messages into table `queues`. Each message will
 have its own consumer.
