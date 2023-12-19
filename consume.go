@@ -32,11 +32,15 @@ type Consume interface {
 }
 
 type consume struct {
-	pool *pgxpool.Pool
+	pool   *pgxpool.Pool
+	logger Logger
 }
 
-func NeWConsume(tenantPool *pgxpool.Pool) Consume {
-	return consume{tenantPool}
+func NeWConsume(pool *pgxpool.Pool, logger Logger) Consume {
+	return consume{
+		pool:   pool,
+		logger: logger,
+	}
 }
 
 type Queue struct {

@@ -24,9 +24,9 @@ type Message interface {
 	RequestID() string
 }
 
-// MQMessage contains all possible json data
+// MQMessage holds message data, which will be saved at db table
 type MQMessage struct {
-	// Tag
+	// event
 	MQEvent Event `json:"event"`
 
 	// request id

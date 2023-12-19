@@ -10,6 +10,7 @@ import (
 	"github.com/labstack/echo/v4"
 	"github.com/labstack/gommon/log"
 	"github.com/smiletrl/mq"
+	"github.com/smiletrl/mq/example/pkg/logger"
 	"github.com/smiletrl/mq/example/pkg/postgres"
 	notify "github.com/smiletrl/mq/example/service.notify"
 	order "github.com/smiletrl/mq/example/service.order"
@@ -21,6 +22,8 @@ func main() {
 	if err != nil {
 		panic("pgx pool instance error: " + err.Error())
 	}
+
+	logger := logger.NewLogger()
 
 	// echo instance
 	e := echo.New()
@@ -52,7 +55,7 @@ func main() {
 
 	// start mq consumer
 	go func() {
-		consume := mq.NeWConsume(pool)
+		consume := mq.NeWConsume(pool, logger)
 		consume.Consume()
 	}()
 
@@ -61,7 +64,7 @@ func main() {
 }
 
 func shutdown(e *echo.Echo) {
-	// Handle SIGTERM used by k8s.
+	// Handle SIGTERM
 	ch := make(chan os.Signal)
 	signal.Notify(ch, syscall.SIGINT, syscall.SIGTERM)
 	select {
