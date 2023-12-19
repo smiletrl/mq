@@ -71,7 +71,7 @@ If all goes well, golang echo server console will output something like this
 2023/12/19 15:41:34 order consumer is processed successfully!
 ```
 
-Both postgres and go code uses UTC timezone. If your local Go env's timezone is UTC > UTC+0 such as UTC+8, you may observe
+Both postgres and go code use UTC timezone. If your local Go env's timezone is UTC > UTC+0 such as UTC+8, you may observe
 above result. Otherwise it depends on your timezone.
 
 ## Development
