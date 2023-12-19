@@ -7,7 +7,6 @@ require (
 	github.com/jackc/pgx/v4 v4.18.1
 	github.com/labstack/echo/v4 v4.11.3
 	github.com/labstack/gommon v0.4.0
-	github.com/pkg/errors v0.9.1
 )
 
 require (

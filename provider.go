@@ -7,7 +7,6 @@ import (
 
 	"github.com/jackc/pgx/v4"
 	"github.com/jackc/pgx/v4/pgxpool"
-	"github.com/pkg/errors"
 )
 
 type Provider interface {
@@ -54,7 +53,7 @@ func (p provider) SendMessage(ctx context.Context, tx pgx.Tx, message Message) e
 	event := message.Event()
 	consumerGroups, ok := p.innerConsumers()[event]
 	if !ok {
-		return errors.Errorf("mq event: %s does not have consumer groups", event.String())
+		return fmt.Errorf("mq event: %s does not have consumer groups", event.String())
 	}
 	query := `insert into queues(consumer_name, message, check_at) values`
 
