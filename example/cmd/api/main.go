@@ -8,6 +8,7 @@ import (
 	"syscall"
 
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 	"github.com/labstack/gommon/log"
 	"github.com/smiletrl/mq"
 	"github.com/smiletrl/mq/example/pkg/logger"
@@ -25,8 +26,13 @@ func main() {
 
 	logger := logger.NewLogger()
 
+	mqProvider := mq.NewProvider(pool)
+
 	// echo instance
 	e := echo.New()
+	// Middleware
+	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 
 	// health check
 	e.GET("", func(c echo.Context) error {
@@ -36,7 +42,7 @@ func main() {
 
 	// register handlers
 	orderRepo := order.NewRepository(pool)
-	orderSvc := order.NewService(orderRepo)
+	orderSvc := order.NewService(pool, orderRepo, mqProvider)
 	order.RegisterHandlers(group, orderSvc)
 
 	// register consumers

@@ -4,3 +4,6 @@ db-start:
 
 db-restart:
 	- docker compose down && docker compose up -d
+
+app-start:
+	- cd cmd/api && go run main.go

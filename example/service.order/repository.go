@@ -40,7 +40,7 @@ func (r *repository) Create(ctx context.Context, tx pgx.Tx, req *createRequest) 
 
 func (r *repository) Cancel(ctx context.Context, tx pgx.Tx, orderID int64) error {
 	query := `update orders set status = $1 where id = $2`
-	if _, err := tx.Exec(ctx, query, orderID); err != nil {
+	if _, err := tx.Exec(ctx, query, OrderStatusCanceled, orderID); err != nil {
 		return fmt.Errorf("error canceling order: %w", err)
 	}
 	return nil
@@ -51,5 +51,5 @@ func (r *repository) GetStatusWithLock(ctx context.Context, tx pgx.Tx, orderID i
 	if err := tx.QueryRow(ctx, query, orderID).Scan(&status); err != nil {
 		return status, fmt.Errorf("error selecting order status: %w", err)
 	}
-	return "", nil
+	return status, nil
 }

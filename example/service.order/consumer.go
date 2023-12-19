@@ -3,6 +3,7 @@ package order
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/jackc/pgx/v4"
@@ -55,6 +56,8 @@ func (c *OrderCreatedConsumer) Consume(ctx context.Context, tx pgx.Tx, msgRaw *m
 	if err := c.repo.Cancel(ctx, tx, orderID); err != nil {
 		return fmt.Errorf("error canceling order at consumer: %w", err)
 	}
+
+	log.Printf("order consumer is processed successfully!\n")
 
 	return nil
 }

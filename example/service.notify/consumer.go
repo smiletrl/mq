@@ -3,6 +3,7 @@ package notify
 import (
 	"context"
 	"fmt"
+	"log"
 	"time"
 
 	"github.com/jackc/pgx/v4"
@@ -31,7 +32,7 @@ func (c *OrderCreatedConsumer) Event() mq.Event {
 
 func (c *OrderCreatedConsumer) Delay() time.Duration {
 	// consume this message immediately
-	return 0
+	return 5 * time.Minute
 }
 
 func (c *OrderCreatedConsumer) Consume(ctx context.Context, tx pgx.Tx, msgRaw *mq.MQMessage) error {
@@ -45,5 +46,6 @@ func (c *OrderCreatedConsumer) Consume(ctx context.Context, tx pgx.Tx, msgRaw *m
 		return fmt.Errorf("error sending email: %w", err)
 	}
 
+	log.Printf("notification consumer is processed successfully!\n")
 	return nil
 }

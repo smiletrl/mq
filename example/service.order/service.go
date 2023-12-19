@@ -19,9 +19,11 @@ type service struct {
 	mq   mq.Provider
 }
 
-func NewService(repository Repository) Service {
+func NewService(pool *pgxpool.Pool, repository Repository, mq mq.Provider) Service {
 	return &service{
+		pool: pool,
 		repo: repository,
+		mq:   mq,
 	}
 }
 

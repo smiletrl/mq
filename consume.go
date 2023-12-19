@@ -133,7 +133,7 @@ func (c consume) consumeSingleMessage() (sleep bool) {
 		// rollback the nested transaction
 		if err := nestTx.Rollback(ctx); err != nil {
 			// if this error happens, something fatal happens, this message will be processed infinitely.
-			log.Errorf("MQ: error rolling back nested tx")
+			log.Errorf("MQ: error rolling back nested tx: %w", err)
 			return
 		}
 		if queue.Retry+1 >= MaxRetry {
@@ -144,12 +144,12 @@ func (c consume) consumeSingleMessage() (sleep bool) {
 			}
 		} else {
 			// increase this retry, and check it later
-			sql := `update queues set retry = retry + 1, check_at = $1 where id = $2`
+			sql := `update queues set retry = retry + 1, failed_reason = $1, check_at = $2 where id = $3`
 			delay, ok := RetryDelay[queue.Retry]
 			if !ok {
 				delay = 10 * time.Second
 			}
-			if _, err := tx.Exec(ctx, sql, time.Now().Add(delay), queue.ID); err != nil {
+			if _, err := tx.Exec(ctx, sql, consumeErr.Error(), time.Now().Add(delay), queue.ID); err != nil {
 				log.Errorf("MQ: error updating queues with retry: (%v)", err)
 			}
 		}
