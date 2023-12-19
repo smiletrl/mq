@@ -11,7 +11,7 @@ import (
 )
 
 type Provider interface {
-	// send message with pgx pool tx
+	// send message with pgx tx
 	SendMessage(ctx context.Context, tx pgx.Tx, message Message) error
 }
 
@@ -22,7 +22,6 @@ func NewProvider(pool *pgxpool.Pool) Provider {
 }
 
 type provider struct {
-	// group is used to create messages. One event/tag(e.g, order_created) will insert every consumer group's own message
 	consumers map[Event][]Consumer
 	pool      *pgxpool.Pool
 }
