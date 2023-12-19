@@ -13,7 +13,7 @@ easier to be implemented with postgres tx. [pgx](https://github.com/jackc/pgx) i
 
 It's up to project to use appropriate postgres library.
 
-# Design
+## Design
 
 This system is based on below table `queues`:
 
@@ -43,7 +43,7 @@ scan this table and consume messages with related consumer.
 This queue supports retry, delay, dead queue. If required, a queue dashboard can be created to demonstrate current list
 queue messages for system administrator to review queue health.
 
-# Scenario example
+## Scenario example
 
 In commerce app, user puts one order but not paid yet. There are two things to be done after order is created:
 
@@ -74,7 +74,7 @@ If all goes well, golang echo server console will output something like this
 Both postgres and go code uses UTC timezone. If your local Go env's timezone is UTC > UTC+0 such as UTC+8, you may observe
 above result. Otherwise it depends on your timezone.
 
-# Development
+## Development
 
 - How to produce event `order_created` messages
 
@@ -106,7 +106,7 @@ see `example/cmd/api/main.go`
 	}()
 ```
 
-# Increase consume speed
+## Increase consume speed
 
 If current consume speed is not satisfying, try alternative approach to rewrite
 `consume.go Consume()` to increase performance. Remember using query `for update skip locked`,
